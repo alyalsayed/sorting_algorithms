@@ -1,17 +1,17 @@
 #!/bin/bash
 
-# Check if a commit message was provided
-if [ -z "$1" ]
+# Check if a file name and commit message were provided
+if [ -z "$1" ] || [ -z "$2" ]
 then
-    echo "Please provide a commit message"
+    echo "Please provide a file name and a commit message"
     exit 1
 fi
 
-# Add all changes to the staging area
-git add .
+# Add the specified file to the staging area
+git add "$1"
 
 # Commit the changes with the provided message
-git commit -m "$1"
+git commit -m "$2"
 
 # Push the changes to the remote repository
 git push
