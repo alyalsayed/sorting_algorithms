@@ -4,8 +4,6 @@
  * swap_ints - swaps two values in an array
  * @val_1: first value
  * @val_2: second value
- *
- * Return: Nothing
  */
 void swap_ints(int *val_1, int *val_2)
 {
@@ -20,7 +18,6 @@ void swap_ints(int *val_1, int *val_2)
  * selection_sort - A function that use selection sort algorithm.
  * @array: An array to sort.
  * @size: The size of the array.
- * return: nothing.
  */
 void selection_sort(int *array, size_t size)
 {
