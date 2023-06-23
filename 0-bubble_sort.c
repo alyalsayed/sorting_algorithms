@@ -1,4 +1,5 @@
 #include "sort.h"
+
 /**
  * swap_ints - swaps two values in an array
  * @val_1: first value
