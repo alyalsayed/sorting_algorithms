@@ -21,7 +21,6 @@ void swap_ints(int *val_1, int *val_2)
   * @size: THe length of the aaray.
   * Return: Nothing.
   */
-
 void bubble_sort(int *array, size_t size)
 {
 	size_t i, j;
