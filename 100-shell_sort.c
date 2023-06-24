@@ -25,6 +25,7 @@ void swap_ints(int *val_1, int *val_2)
 void shell_sort(int *array, size_t size)
 {
 	int i, j, gap = 1;
+	int temp;
 
         if (array == NULL || size < 2)
                 return;
@@ -35,16 +36,14 @@ void shell_sort(int *array, size_t size)
         /*iterating the array and progressively reducing the gap*/
 	for (; gap > 0; gap /= 3)
 	{
-		for (j = gap; j < (int)size; j++)
+		for (i = gap; i < (int)size; i++)
 		{
-			for (i = j - gap; i >= 0; i -= gap)
-			{
-                                /*comparing elements far apart based on the gap between them*/
-				if (array[i + gap] > array[i])
-					break;
-				else
-					swap_ints(&array[i], &array[i + gap]);
-			}
+			/*comparing elements far apart based on the gap between them*/
+			temp = array[i];
+
+			for (j = i; j >= gap && array[j - gap] > temp; j -= gap)
+				array[j] = array[j - gap];
+			array[j] = temp;
 		}
 		print_array(array, size);
 	}
