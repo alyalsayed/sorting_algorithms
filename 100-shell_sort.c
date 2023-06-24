@@ -30,7 +30,7 @@ void shell_sort(int *array, size_t size)
                 return;
 
 	/* Genrate the Knuth sequence*/
-	while (gap <= (int)size / 3)
+	while (gap < (int)size / 3)
 		gap *= 3 + 1;
         /*iterating the array and progressively reducing the gap*/
 	for (; gap > 0; gap /= 3)
