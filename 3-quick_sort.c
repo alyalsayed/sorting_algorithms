@@ -1,4 +1,17 @@
 #include "sort.h"
+/**
+ * swap_ints - swaps two values in an array
+ * @val_1: first value
+ * @val_2: second value
+ */
+void swap_ints(int *val_1, int *val_2)
+{
+	int tmp;
+
+	tmp = *val_1;
+	*val_1 = *val_2;
+	*val_2 = tmp;
+}
 
 /**
  * lomuto_partition - partitions an array using the Lomuto partition scheme
@@ -20,18 +33,14 @@ int lomuto_partition(int *array, int low, int high, size_t size)
 		{
 			if (i != j)
 			{
-				temp = array[i];
-				array[i] = array[j];
-				array[j] = temp;
+				swap_ints(&array[i], &array[j]);
 				print_array(array, size);
 			}            i++;
 		}
 	}
 	if (i != high)
 	{
-		temp = array[i];
-		array[i] = array[high];
-		array[high] = temp;
+		swap_ints(&array[i], &array[j]);
 		print_array(array, size);
 	}
 	return (i);
