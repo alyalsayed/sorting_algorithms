@@ -40,12 +40,10 @@ void shell_sort(int *array, size_t size)
 			for (i = j - gap; i >= 0; i -= gap)
 			{
                                 /*comparing elements far apart based on the gap between them*/
-				if (array[i] > array[i + gap])
-				{
-					swap_ints(&array[i], &array[i + gap]);
-				}
-				else
+				if (array[i + gap] > array[i])
 					break;
+				else
+					swap_ints(&array[i], &array[i + gap]);
 			}
 		}
 		print_array(array, size);
