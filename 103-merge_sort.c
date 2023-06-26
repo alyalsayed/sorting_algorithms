@@ -3,130 +3,83 @@
 #include <stdio.h>
 
 /**
- * print_left_right - print left and right partitions
- * @array: array
- * @size: size of second array
- * @first: initial position
- * @mid: middle position
- */
-void print_left_right(int *array, int size, int first, int mid)
-{
-	int k;
-
-	printf("Merging...\n");
-	printf("[left]: ");
-	k = first;
-	while (k < mid)
-	{
-		if (k != mid - 1)
-			printf("%d, ", array[k]);
-		else
-			printf("%d\n", array[k]);
-		k++;
-	}
-
-	printf("[right]: ");
-	k = mid;
-	while (k < size)
-	{
-		if (k < size - 1)
-			printf("%d, ", array[k]);
-		else
-			printf("%d\n", array[k]);
-		k++;
-	}
-}
-
-/**
- * merge - merge the values in the position of array
- * @array: first array
- * @size: size of second array
- * @cpy: copy of array
- * @first: initial position
- * @mid: middle position
- * first one of the second array
- */
-void merge(int *array, int size, int first, int mid, int *cpy)
-{
-	int i, j, k;
-
-	print_left_right(array, size, first, mid);
-
-	i = first;
-	j = mid;
-
-	printf("[Done]: ");
-	k = first;
-	while (k < size)
-	{
-		if (i < mid && (j >= size || array[i] <= array[j]))
-		{
-			cpy[k] = array[i];
-			i++;
-		}
-		else
-		{
-			cpy[k] = array[j];
-			j++;
-		}
-		if (k < size - 1)
-			printf("%d, ", cpy[k]);
-		else
-			printf("%d\n", cpy[k]);
-		k++;
-	}
-}
-/**
- * mergeSort - array separator
- * @cpy: copy of array
- * @first: initial position
- * @size: size of the original  array
- * @array: the original array
- */
-void mergeSort(int *cpy, int first, int size, int *array)
-{
-	int mid;
-
-	if (size - first < 2)
-		return;
-
-	mid = (size + first) / 2;
-
-	mergeSort(array, first, mid, cpy);
-	mergeSort(array, mid, size, cpy);
-
-	merge(cpy, size, first, mid, array);
-}
-/**
- * copy_array - copy array of int
- * @arr: array src
- * @cpy: array dest
- * @size : array size
- */
-void copy_array(int *arr, int *cpy, int size)
-{
-	int i;
-
-	for (i = 0; i < (int)size; i++)
-		cpy[i] = arr[i];
-}
-
-/**
- * merge_sort - create partition and copy
- * @array: array
- * @size : array size
+ * merge_sort - A function that sorts an array using merge algorithm.
+ * @array: The array to sort.
+ * @size: The size of the array.
+ * Return: Nothing.
  */
 void merge_sort(int *array, size_t size)
 {
-	int *cpy;
+	size_t i = 0;
+	int *base = NULL;
 
-	cpy = malloc(sizeof(int) * size - 1);
-
-	if (cpy == NULL)
+	if (array == NULL || size < 2)
 		return;
+	base = malloc(sizeof(int) * size);
+	if (base == NULL)
+		return;
+	for (; i < size; i++)
+		base[i] = array[i];
+	merge_partition(0, size, array, base);
+	free(base);
+}
 
-	copy_array(array, cpy, size);
+/**
+ * merge - A function that sorts the subarrays.
+ * @lo: Lower index.
+ * @mi: Middle index.
+ * @hi: Higher index.
+ * @dest: Destination for data.
+ * @src: Input data.
+ * Return: Nothing
+ */
+void merge(size_t lo, size_t mi, size_t hi, int *dest, int *src)
+{
+	size_t i = 0, j = 0, k = 0;
 
-	mergeSort(cpy, 0, size, array);
-	free(cpy);
+	printf("Merging...\n");
+	printf("[left]: ");
+	print_array(src + lo, mi - lo);
+	printf("[right]: ");
+	print_array(src + mi, hi - mi);
+	i = lo;
+	j = mi;
+	k = lo;
+		for (; k < hi; k++)
+		{
+			if (i < mi && (j >= hi || src[i] <= src[j]))
+			{
+				dest[k] = src[i];
+				i++;
+			}
+			else
+			{
+				dest[k] = src[j];
+				j++;
+			}
+		}
+	printf("[Done]: ");
+	print_array(dest + lo, hi - lo);
+}
+
+/**
+ * merge_partition - A funtion that splits the array recursively.
+ * @lo: Lower index.
+ * @hi: Higher index.
+ * @array: The array to sort.
+ * @base: The copy of the array.
+ * Return: Nothing.
+ */
+void merge_partition(size_t lo, size_t hi, int *array, int *base)
+{
+	size_t mi = 0;
+
+	if (hi - lo < 2)
+		return;
+	mi = (lo + hi) / 2;
+	merge_partition(lo, mi, array, base);
+	merge_partition(mi, hi, array, base);
+	merge(lo, mi, hi, array, base);
+	for (mi = lo; mi < hi; mi++)
+		base[mi] = array[mi];
 }
