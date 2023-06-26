@@ -1,4 +1,5 @@
 #include "sort.h"
+
 /**
  * merge_SubArray - merges the sub-arrays
  * @high: highest index

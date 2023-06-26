@@ -1,50 +1,36 @@
 #include "sort.h"
 
 /**
- * swap_ints - swaps two values in an array
- * @val_1: first value
- * @val_2: second value
- */
-void swap_ints(int *val_1, int *val_2)
-{
-	int tmp;
-
-	tmp = *val_1;
-	*val_1 = *val_2;
-	*val_2 = tmp;
-}
-
-/**
- * shell_sort - a function that sorts an array of integers
- * in ascending order using the Shell sort algorithm,
- * using the Knuth sequence
- *
- * @array: the array to be sorted
- * @size: size of the array
-*/
+  * shell_sort - A function tat sorts an array usin shell algorithm.
+  * @array: The array to sort.
+  * @size: The length of the array.
+  * Return: Nothing.
+  */
 void shell_sort(int *array, size_t size)
 {
-	int i, j, gap;
+	unsigned int i = 0, j = 0, gap = 0;
+	int aux = 0;
 
 	if (array == NULL || size < 2)
 		return;
 
-	/*Genrate the Knuth sequence*/
-	for (gap = 1; gap < (int)size; gap = gap * 3 + 1)
-		;
-	/*iterating the array and progressively reducing the gap*/
-	for (gap = gap / 3; gap > 0; gap /= 3)
+	while (gap < size / 3)
+		gap = gap * 3 + 1;
+
+	for (; gap > 0; gap = (gap - 1) / 3)
 	{
-		for (i = gap; i < (int)size; i++)
+		for (i = gap; i < size; i++)
 		{
-			/*comparing elements far apart based on the gap between them*/
-			for (j = i - gap; j >= 0; j -= gap)
+			aux = array[i];
+			for (j = i; j >= gap && array[j - gap] > aux;
+					j -= gap)
 			{
-				if (array[j] > array[j + gap])
-					swap_ints(&array[j], &array[gap + j]);
-				else
-					break;
+				if (array[j] != array[j - gap])
+					array[j] = array[j - gap];
 			}
+			if (array[j] != aux)
+				array[j] = aux;
+
 		}
 		print_array(array, size);
 	}
