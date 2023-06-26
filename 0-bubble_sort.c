@@ -1,17 +1,14 @@
 #include "sort.h"
 
 /**
- * swap_ints - swaps two values in an array
+ * swap - swaps two values in an array
  * @val_1: first value
  * @val_2: second value
  */
-void swap_ints(int *val_1, int *val_2)
-{
-	int tmp;
-
-	tmp = *val_1;
-	*val_1 = *val_2;
-	*val_2 = tmp;
+void swap(int *a, int *b) {
+	int temp = *a;
+	*a = *b;
+	*b = temp;
 }
 
 /**
@@ -21,19 +18,19 @@ void swap_ints(int *val_1, int *val_2)
   */
 void bubble_sort(int *array, size_t size)
 {
-	size_t i, j;
-
 	if (array == NULL || size < 2)
 		return;
-	for (i = 0; i < size - 1; i++)
-	{
-		for (j = 0; j < size - i - 1; j++)
-		{
-			if (array[j] > array[j + 1])
-			{
-				swap_ints(&array[j], &array[j + 1]);
+
+	int swapped = 1;
+    for (size_t i = 0; i < size - 1 && swapped; i++) {
+        swapped = 0;
+        for (size_t j = 0; j < size - i - 1; j++) {
+            if (array[j] > array[j+1]) {
+                swap(&array[j], &array[j+1]);
+                swapped = 1;
 				print_array(array, size);
 			}
 		}
 	}
 }
+
