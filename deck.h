@@ -1,3 +1,6 @@
+#ifndef SORT_D
+#define SORT_D
+
 /**
 * enum kind_e - suit of the card
 *
