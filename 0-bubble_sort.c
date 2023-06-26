@@ -1,28 +1,25 @@
 #include "sort.h"
-
 /**
- * bubble_sort - sort list with bubble
- * @array: The array to be printed
- * @size: Number of elements in @array
+ * bubble_sort - sort array lements from min to max value
+ * @array: array
+ * @size: array size
  */
 void bubble_sort(int *array, size_t size)
 {
-	size_t n = 0, t = size;
-	int holder;
 
-	if (array == NULL)
+	size_t i, index, tmp = 0;
+
+	if (size < 2)
 		return;
-	for (t = size; t > 0; t--)
-	{
-		for (n = 0; n < size - 1; n++)
+	for (i = 0; i < size; i++)
+		for (index = 0; index < size; index++)
 		{
-			if (array[n] > array[n + 1])
+			if (array[index] > array[index + 1] && array[index + 1])
 			{
-				holder = array[n];
-				array[n] = array[n + 1];
-				array[n + 1] = holder;
-				print_array(array, size);
+			tmp = array[index];
+			array[index] = array[index + 1];
+			array[index + 1] = tmp;
+			print_array(array, size);
 			}
 		}
-	}
 }
